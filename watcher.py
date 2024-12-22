@@ -44,12 +44,12 @@ class Watcher:
             observer.stop()
         observer.join()
         
-    def update(self, new_dict):
-        new_set_dict = set(new_dict)
-        old_set_dict = set(self.directories)
+    def update(self, new_dir):
+        new_set_dir = set(new_dir)
+        old_set_dir = set(self.directories)
         
-        added = new_set_dict - old_set_dict
-        removed = old_set_dict - new_set_dict
+        added = new_set_dir - old_set_dir
+        removed = old_set_dir - new_set_dir
         
         self.observer.schedule(DirectoryHandler(), path=self.base_file, recursive=True)
             
@@ -58,7 +58,7 @@ class Watcher:
         if removed:
             logging.info(f"Directory list modified - Removed: {removed}")
         
-        self.directories = new_set_dict
+        self.directories = new_set_dir
 
 class Handler(FileSystemEventHandler):
     def on_created(self, event):
