@@ -8,9 +8,9 @@ from watchdog.events import  FileSystemEventHandler
 import logging
 
 logging.basicConfig(
-    format='%(asctime)s %(levelname)s %(message)s', 
-    filename="logs/general.log",
-    level=logging.INFO)
+    format="%(levelname)s:\t %(asctime)s %(message)s", 
+    level=logging.INFO, handlers=[logging.FileHandler("logs/general.log", mode='w'),
+                              logging.StreamHandler()])
 
 def directory_import():
     try:
