@@ -2,6 +2,7 @@ import sys
 import os
 import json
 import time
+from multiprocessing import Process
 from watchdog.observers import Observer
 from watchdog.events import  FileSystemEventHandler
 import logging
@@ -80,4 +81,7 @@ class DirectoryHandler(FileSystemEventHandler, Watcher):
         
 if __name__ == "__main__":
     watcher = Watcher()
+    fastapi_process = Process(target=os.system, args=('python3 app.py',))
+    fastapi_process.start()
     watcher.run()
+    fastapi_process.join()
